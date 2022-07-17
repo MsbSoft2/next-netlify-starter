@@ -1,23 +1,27 @@
-import Head from 'next/head'
-import Header from '@components/Header'
-import Footer from '@components/Footer'
+import Head from "next/head";
+import Link from "next/link";
+import { Fragment } from "react";
+import Home from "../components/home/home";
+import getInformation from "../lib/info-util";
 
-export default function Home() {
+function HomePage(props) {
   return (
-    <div className="container">
+    <Fragment>
       <Head>
-        <title>Next.js Starter!</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>Mohammad Sadra Boromand - WebSite</title>
       </Head>
-
-      <main>
-        <Header title="Welcome to my app!" />
-        <p className="description">
-          Get started by editing <code>pages/index.js</code>
-        </p>
-      </main>
-
-      <Footer />
-    </div>
-  )
+      <Home info={props.info} />
+    </Fragment>
+  );
 }
+
+export function getServerSideProps() {
+  const info = getInformation();
+  return {
+    props: {
+      info: info,
+    },
+  };
+}
+
+export default HomePage;
